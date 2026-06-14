@@ -6,7 +6,7 @@
 ═══════════════════════════════════════════════════════════ -->
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<title>Flip Clock — Free Online Split-Flap Clock & Stopwatch</title>
+<title>Flip Clock — Free Online Split-Flap Clock &amp; Stopwatch</title>
 <meta name="description" content="Flip Clock is a free, beautiful online split-flap clock and stopwatch. Supports 12/24 hour format, seconds display, digital font, tick sound, and fullscreen desk-clock mode."/>
 <meta name="keywords" content="flip clock, online clock, split flap clock, stopwatch, digital clock, free clock, desk clock, 12 hour clock, 24 hour clock, timer"/>
 <meta name="robots" content="index, follow"/>
@@ -16,14 +16,14 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://flip-clock2.vercel.app/"/>
-<meta property="og:title" content="Flip Clock — Free Online Split-Flap Clock & Stopwatch"/>
+<meta property="og:title" content="Flip Clock — Free Online Split-Flap Clock &amp; Stopwatch"/>
 <meta property="og:description" content="A beautiful free online split-flap clock and stopwatch with 12/24 hr mode, tick sound, fullscreen and more."/>
 <meta property="og:image" content="https://flip-clock2.vercel.app/og-image.png"/>
 <meta property="og:site_name" content="Flip Clock"/>
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Flip Clock — Free Online Split-Flap Clock & Stopwatch"/>
+<meta name="twitter:title" content="Flip Clock — Free Online Split-Flap Clock &amp; Stopwatch"/>
 <meta name="twitter:description" content="A beautiful free online split-flap clock and stopwatch."/>
 <meta name="twitter:image" content="https://flip-clock2.vercel.app/og-image.png"/>
 
@@ -59,13 +59,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet"/>
 
-<!-- Google AdSense: replace with your own publisher ID -->
+<!-- Google AdSense: replace ca-pub-XXXXXXXXXXXXXXXX with your publisher ID -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-
-<!-- ═══════════════════════════════════════════════════════════
-     ADSENSE SCRIPT (replace ca-pub-XXXXXXXXXXXXXXXX with your ID)
-     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-═══════════════════════════════════════════════════════════ -->
 
 <style>
 /* ═══════════════════════════════════════
@@ -236,6 +231,11 @@ html,body{
 .nav-btn:hover{color:var(--text);background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.06);}
 .nav-btn.active{color:var(--text);background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.06);}
 .nav-btn svg{width:2.2vmin;height:2.2vmin;flex-shrink:0;}
+
+/* ── Info reopen button (hidden by default, shown when SEO panel is closed) ── */
+#seo-reopen{display:none;}
+#seo-reopen.visible{display:flex;}
+@media(max-width:840px){#seo-reopen{display:none!important;}}
 
 /* ═══════════════════════════════════════
    FOOTER (legal links)
@@ -410,6 +410,8 @@ html,body{
 :fullscreen .colon{font-size:12vmin;}
 :fullscreen .site-footer{display:none;}
 :fullscreen .ad-banner{display:none;}
+:fullscreen .seo-panel-wrap{display:none;}
+:fullscreen .cookie-banner{display:none;}
 
 /* ═══════════════════════════════════════
    MOBILE
@@ -438,6 +440,10 @@ html,body{
   .legal-body{font-size:13.5px;padding:20px 16px 24px;}
   .legal-header{padding:14px 16px;}
   .legal-header h2{font-size:15px;}
+  .cookie-banner{padding:10px 14px;gap:10px;}
+  .cookie-text{font-size:11.5px;}
+  .cookie-ok{padding:7px 14px;font-size:11.5px;}
+  .cookie-no{padding:7px 10px;font-size:11.5px;}
 }
 
 /* ═══════════════════════════════════════
@@ -453,17 +459,42 @@ html,body{
   overflow:auto;
   z-index:120;
   pointer-events:auto;
+  transition:opacity .25s ease;
 }
+.seo-panel-wrap.seo-hidden{display:none;}
+
 .seo-panel{
+  position:relative;                /* ← needed for the close button */
   background:rgba(12,12,14,.82);
   border:1px solid rgba(255,255,255,.08);
   border-radius:18px;
   backdrop-filter:blur(10px);
   -webkit-backdrop-filter:blur(10px);
   box-shadow:0 18px 50px rgba(0,0,0,.35);
-  padding:18px 20px 20px;
+  padding:18px 48px 20px 20px;     /* ← right padding leaves room for ✕ */
   color:var(--text);
 }
+
+/* ── SEO panel close (✕) button ── */
+.seo-panel-close{
+  position:absolute;top:10px;right:10px;
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.16);
+  color:var(--text-dim);
+  border-radius:50%;
+  width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:13px;line-height:1;
+  transition:background .15s,color .15s,border-color .15s;
+  z-index:5;
+  flex-shrink:0;
+}
+.seo-panel-close:hover{
+  background:rgba(255,255,255,.2);
+  border-color:rgba(255,255,255,.3);
+  color:var(--text);
+}
+
 .seo-panel h2{
   font-size:clamp(18px,2.2vw,28px);
   margin-bottom:10px;
@@ -503,6 +534,54 @@ html,body{
   .seo-panel-wrap{display:none;}
 }
 
+/* ═══════════════════════════════════════
+   COOKIE CONSENT BANNER
+═══════════════════════════════════════ */
+.cookie-banner{
+  position:fixed;bottom:0;left:0;right:0;
+  z-index:450;
+  background:rgba(18,18,20,.97);
+  border-top:1px solid rgba(255,255,255,.09);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  padding:12px 20px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  justify-content:space-between;
+  transition:transform .35s ease,opacity .35s ease;
+  box-shadow:0 -4px 24px rgba(0,0,0,.4);
+}
+.cookie-banner.hidden{
+  transform:translateY(100%);
+  opacity:0;
+  pointer-events:none;
+}
+.cookie-text{
+  flex:1;min-width:180px;
+  font-size:12.5px;line-height:1.6;
+  color:rgba(242,242,240,.72);
+  font-family:var(--font-1);
+}
+.cookie-text a{color:#4da6ff;text-decoration:none;}
+.cookie-text a:hover{text-decoration:underline;}
+.cookie-btns{display:flex;gap:8px;flex-shrink:0;align-items:center;}
+.cookie-ok{
+  background:#e8e8e6;color:#1a1a1a;
+  border:none;border-radius:6px;
+  padding:8px 18px;font-size:12.5px;font-weight:700;
+  cursor:pointer;white-space:nowrap;
+  transition:background .15s;
+  font-family:var(--font-1);letter-spacing:.02em;
+}
+.cookie-ok:hover{background:#fff;}
+.cookie-no{
+  background:transparent;color:var(--text-dim);
+  border:1px solid rgba(255,255,255,.14);border-radius:6px;
+  padding:8px 13px;font-size:12.5px;font-weight:600;
+  cursor:pointer;white-space:nowrap;
+  transition:background .15s,color .15s;
+  font-family:var(--font-1);
+}
+.cookie-no:hover{background:rgba(255,255,255,.07);color:var(--text);}
+
 </style>
 </head>
 <body>
@@ -512,7 +591,6 @@ html,body{
        Adsense Header
   ═══════════════════════════════════════ -->
   <div class="ad-banner" role="complementary" aria-label="Advertisement">
-    <!-- Adsense Header -->
     <!--
     <ins class="adsbygoogle"
          style="display:block"
@@ -559,18 +637,6 @@ html,body{
       </div>
     </div>
 
-    <!-- Adsense Content -->
-    <!-- Placed inside views area, non-intrusive -->
-    <!--
-    <div style="position:absolute;bottom:0;left:0;right:0;text-align:center;pointer-events:none;">
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:728px;height:90px"
-           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-           data-ad-slot="XXXXXXXXXX"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-    -->
-
   </div>
 
   <!-- ═══════════════════════════════════════
@@ -588,6 +654,15 @@ html,body{
       </button>
     </div>
     <div class="bottom-group">
+      <!-- ✦ NEW: Info button — shows when SEO panel is closed (desktop only) -->
+      <button class="nav-btn" id="seo-reopen" aria-label="Show info panel" title="Show info panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+          <polyline points="11 12 12 12 12 16"/>
+        </svg>
+        <span class="label">Info</span>
+      </button>
       <button class="nav-btn" id="fullscreen-btn" aria-label="Toggle fullscreen">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="fs-icon" aria-hidden="true">
           <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
@@ -614,7 +689,6 @@ html,body{
        Adsense Footer
   ═══════════════════════════════════════ -->
   <div class="ad-banner footer-ad" role="complementary" aria-label="Advertisement">
-    <!-- Adsense Footer -->
     <!--
     <ins class="adsbygoogle"
          style="display:block"
@@ -732,9 +806,14 @@ html,body{
 
   <!-- ═══════════════════════════════════════
        HOMEPAGE SEO CONTENT
+       ✦ NEW: close button added inside .seo-panel
   ═══════════════════════════════════════ -->
-  <div class="seo-panel-wrap" aria-label="Flip Clock guide">
+  <div class="seo-panel-wrap" id="seo-panel-wrap" aria-label="Flip Clock guide">
     <section class="seo-panel">
+
+      <!-- ✦ NEW: Close button -->
+      <button class="seo-panel-close" id="seo-close" aria-label="Close info panel" title="Close info panel">&#10005;</button>
+
       <h2>What is Flip Clock?</h2>
       <p>
         Flip Clock is a lightweight online split-flap clock and stopwatch built for people who want a clean, readable, and distraction-free time display. It recreates the classic mechanical flip-board look in the browser, so the digits feel familiar, bold, and easy to glance at from a distance. Unlike a traditional app that needs installation, this version runs directly in your browser and is designed to load fast, work on modern devices, and stay simple.
@@ -820,6 +899,21 @@ html,body{
     </section>
   </div>
 
+  <!-- ═══════════════════════════════════════
+       ✦ NEW: COOKIE CONSENT BANNER
+       (Required for AdSense / GDPR compliance)
+  ═══════════════════════════════════════ -->
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie consent" aria-live="polite">
+    <p class="cookie-text">
+      We use cookies to personalise content and ads, and to analyse our traffic.
+      By clicking <strong>Accept</strong> you consent to our use of cookies as described in our
+      <a href="#" data-legal="privacy">Privacy Policy</a>.
+    </p>
+    <div class="cookie-btns">
+      <button class="cookie-no" id="cookie-no" type="button">Decline</button>
+      <button class="cookie-ok" id="cookie-ok" type="button">Accept All</button>
+    </div>
+  </div>
 
 </div><!-- /#app -->
 
@@ -1164,7 +1258,6 @@ const LEGAL_PAGES = {
       <h3>General Enquiries</h3>
       <p>For general questions about Flip Clock, its features, or how it works, you can reach us by email at:</p>
       <p><strong>ajaygupta163482@gmail.com</strong></p>
-      <p>(Replace the above with your actual email address before publishing.)</p>
 
       <h3>Bug Reports</h3>
       <p>If you discover a bug or something that doesn't work as expected, please describe the issue in as much detail as possible, including:</p>
@@ -1194,18 +1287,7 @@ const LEGAL_PAGES = {
       <p>This Privacy Policy describes how Flip Clock ("we", "us", or "our"), operated at <strong>https://flip-clock2.vercel.app</strong>, collects, uses, and shares information when you visit or use our website.</p>
       <p>By using this website, you consent to the data practices described in this policy. If you do not agree, please discontinue use of the site.</p>
 
-      <!-- Adsense Content (inside legal page) -->
       <div class="ad-in-legal">
-        <!-- Adsense Content -->
-        <!--
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-             data-ad-slot="XXXXXXXXXX"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});<\/script>
-        -->
         <span class="ad-label">Advertisement</span>
       </div>
 
@@ -1374,8 +1456,6 @@ function openLegal(key){
   legalBody.innerHTML=page.html;
   legalOverlay.classList.add('active');
   legalBody.scrollTop=0;
-
-  /* Wire up internal links inside legal content */
   legalBody.querySelectorAll('.legal-internal-link').forEach(a=>{
     a.addEventListener('click',e=>{
       e.preventDefault();
@@ -1388,7 +1468,6 @@ function openLegal(key){
 legalClose.addEventListener('click',()=>legalOverlay.classList.remove('active'));
 legalOverlay.addEventListener('click',e=>{ if(e.target===legalOverlay) legalOverlay.classList.remove('active'); });
 
-/* Footer link clicks */
 document.querySelectorAll('.site-footer a[data-legal]').forEach(a=>{
   a.addEventListener('click',e=>{
     e.preventDefault();
@@ -1396,10 +1475,77 @@ document.querySelectorAll('.site-footer a[data-legal]').forEach(a=>{
   });
 });
 
+/* Cookie consent Privacy link inside banner */
+document.querySelector('.cookie-banner .cookie-text a[data-legal]') &&
+  document.querySelector('.cookie-banner .cookie-text a[data-legal]').addEventListener('click',e=>{
+    e.preventDefault();
+    openLegal('privacy');
+  });
+
 /* ================================================================
    FOOTER YEAR
 ================================================================ */
 document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+/* ================================================================
+   ✦ NEW: SEO PANEL CLOSE / REOPEN
+================================================================ */
+(function(){
+  const wrap      = document.getElementById('seo-panel-wrap');
+  const closeBtn  = document.getElementById('seo-close');
+  const reopenBtn = document.getElementById('seo-reopen');
+  if(!wrap) return;
+
+  function hideSEO(){
+    wrap.classList.add('seo-hidden');
+    if(reopenBtn) reopenBtn.classList.add('visible');
+    /* sessionStorage — panel reappears on next fresh visit (good for SEO bots too) */
+    try{ sessionStorage.setItem('seo-panel-closed','1'); }catch(e){}
+  }
+
+  function showSEO(){
+    wrap.classList.remove('seo-hidden');
+    if(reopenBtn) reopenBtn.classList.remove('visible');
+    try{ sessionStorage.removeItem('seo-panel-closed'); }catch(e){}
+  }
+
+  /* Restore state from this session */
+  try{
+    if(sessionStorage.getItem('seo-panel-closed')==='1') hideSEO();
+  }catch(e){}
+
+  closeBtn  && closeBtn.addEventListener('click',  hideSEO);
+  reopenBtn && reopenBtn.addEventListener('click', showSEO);
+})();
+
+/* ================================================================
+   ✦ NEW: COOKIE CONSENT BANNER
+   (Important for AdSense / GDPR compliance)
+================================================================ */
+(function(){
+  const banner    = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-ok');
+  const declineBtn= document.getElementById('cookie-no');
+  if(!banner) return;
+
+  /* Already answered? Hide immediately */
+  try{
+    if(localStorage.getItem('cookie-consent')){
+      banner.classList.add('hidden');
+      return;
+    }
+  }catch(e){}
+
+  acceptBtn && acceptBtn.addEventListener('click',()=>{
+    banner.classList.add('hidden');
+    try{ localStorage.setItem('cookie-consent','accepted'); }catch(e){}
+  });
+
+  declineBtn && declineBtn.addEventListener('click',()=>{
+    banner.classList.add('hidden');
+    try{ localStorage.setItem('cookie-consent','declined'); }catch(e){}
+  });
+})();
 
 /* ================================================================
    INIT
