@@ -439,6 +439,70 @@ html,body{
   .legal-header{padding:14px 16px;}
   .legal-header h2{font-size:15px;}
 }
+
+/* ═══════════════════════════════════════
+   HOMEPAGE SEO CONTENT
+═══════════════════════════════════════ */
+.seo-panel-wrap{
+  position:fixed;
+  left:50%;
+  bottom:calc(50px + 1.2rem);
+  transform:translateX(-50%);
+  width:min(96vw,1100px);
+  max-height:30vh;
+  overflow:auto;
+  z-index:120;
+  pointer-events:auto;
+}
+.seo-panel{
+  background:rgba(12,12,14,.82);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  box-shadow:0 18px 50px rgba(0,0,0,.35);
+  padding:18px 20px 20px;
+  color:var(--text);
+}
+.seo-panel h2{
+  font-size:clamp(18px,2.2vw,28px);
+  margin-bottom:10px;
+  letter-spacing:.01em;
+}
+.seo-panel h3{
+  font-size:clamp(15px,1.5vw,20px);
+  margin:18px 0 8px;
+  color:var(--text);
+}
+.seo-panel p,
+.seo-panel li{
+  font-size:clamp(13px,1.1vw,16px);
+  line-height:1.75;
+  color:rgba(242,242,240,.9);
+}
+.seo-panel ul{
+  padding-left:20px;
+  margin:10px 0 0;
+}
+.seo-panel .faq-item{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.seo-panel .faq-q{
+  font-weight:700;
+  margin-bottom:6px;
+  color:var(--text);
+}
+.seo-panel .mini-note{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--text-dim);
+}
+@media(max-width:840px){
+  .seo-panel-wrap{display:none;}
+}
+
 </style>
 </head>
 <body>
@@ -665,6 +729,97 @@ html,body{
       <div class="legal-body" id="legal-body"></div>
     </div>
   </div>
+
+  <!-- ═══════════════════════════════════════
+       HOMEPAGE SEO CONTENT
+  ═══════════════════════════════════════ -->
+  <div class="seo-panel-wrap" aria-label="Flip Clock guide">
+    <section class="seo-panel">
+      <h2>What is Flip Clock?</h2>
+      <p>
+        Flip Clock is a lightweight online split-flap clock and stopwatch built for people who want a clean, readable, and distraction-free time display. It recreates the classic mechanical flip-board look in the browser, so the digits feel familiar, bold, and easy to glance at from a distance. Unlike a traditional app that needs installation, this version runs directly in your browser and is designed to load fast, work on modern devices, and stay simple.
+      </p>
+      <p>
+        The experience is intentionally minimal. You can switch between a live clock and a stopwatch, choose 12-hour or 24-hour time, enable or hide seconds, and turn on a subtle tick sound for better time awareness. Because the app is browser-based, it is useful for desks, study setups, online presentations, livestream backgrounds, classrooms, and productivity workflows where a big time display helps reduce friction.
+      </p>
+
+      <h3>Why people use a flip clock</h3>
+      <p>
+        A flip clock is popular because it is both functional and visually calm. The large cards are easy to read, the animation makes time changes feel smooth, and the retro style adds personality without becoming distracting. For many users, it works better than a typical digital clock because the display feels more intentional and more like a dedicated tool than a generic widget.
+      </p>
+      <ul>
+        <li>Fast visual reading at a glance</li>
+        <li>Helpful for study and work focus</li>
+        <li>Useful on large screens and second monitors</li>
+        <li>Works without installing any software</li>
+      </ul>
+
+      <h3>Key features</h3>
+      <ul>
+        <li>12-hour and 24-hour clock modes</li>
+        <li>Optional seconds display for precision</li>
+        <li>Flip-style animation for each digit</li>
+        <li>Stopwatch with centisecond precision</li>
+        <li>Fullscreen desk-clock mode</li>
+        <li>Classic and Digital font styles</li>
+        <li>Auto-saved settings in your browser</li>
+        <li>Lightweight HTML, CSS, and JavaScript build</li>
+      </ul>
+
+      <h3>How to use Flip Clock</h3>
+      <p>
+        Open the page and the clock starts immediately. Use the bottom buttons to switch from Clock to Stopwatch. Open Options to choose your preferred hour format, seconds setting, font style, and tick sound. If you need a clean presentation-style view, use Fullscreen and press Escape to exit. Stopwatch mode is ideal for timed study sessions, breaks, interviews, and simple elapsed-time tracking.
+      </p>
+      <p>
+        Your preferences are stored locally in your browser so the site remembers your choices the next time you visit. That makes it practical for repeated use without requiring an account or setup process.
+      </p>
+
+      <h3>When a browser clock is useful</h3>
+      <p>
+        An online flip clock can be helpful in many everyday situations. Students use it during revision blocks and mock tests. Remote workers keep it open during deep work sessions. Presenters use it on a second monitor during live sessions. People also use it as a large background clock in home offices, studios, and meeting rooms.
+      </p>
+      <p>
+        The stopwatch mode adds more utility, especially when you want a quick timer without opening a separate app. It is not meant to replace advanced workout or scheduling software, but it covers the core need very well.
+      </p>
+
+      <h3>FAQ</h3>
+      <div class="faq-item">
+        <p class="faq-q">Is Flip Clock free to use?</p>
+        <p>Yes. It is a free browser tool and does not require sign-up.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Does it work on mobile?</p>
+        <p>Yes, it is responsive and works on modern phones, tablets, and desktops.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Does the clock save settings?</p>
+        <p>Yes. Your selected mode, font, seconds option, and tick sound are stored in localStorage on your device.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Can I use it in fullscreen?</p>
+        <p>Yes. Fullscreen is built in and works well for a desk-clock style layout.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Is this accurate enough for normal use?</p>
+        <p>The time display follows your device clock, so accuracy depends on your system time settings.</p>
+      </div>
+
+      <h3>Best practices for using a flip clock</h3>
+      <p>
+        For study or work sessions, place the clock in fullscreen on a second display or a large monitor. Use 24-hour mode if you prefer a compact format, or 12-hour mode if you want AM/PM feedback. Hide seconds when you want a calmer look, and enable them when precision matters. For short tasks, stopwatch mode is often easier than switching to a separate timer tool.
+      </p>
+
+      <h3>Why this version is built for simplicity</h3>
+      <p>
+        This site is intentionally made with plain HTML, CSS, and JavaScript. That keeps the page fast, easier to maintain, and more reliable on a wide range of devices. It also means there is less dependency overhead, fewer moving parts, and a more stable experience for visitors. The goal is a useful tool that feels polished while staying lightweight.
+      </p>
+
+      <p class="mini-note">
+        This page also includes supporting policy pages and structured data so visitors and search engines can understand the site better.
+      </p>
+    </section>
+  </div>
+
 
 </div><!-- /#app -->
 
