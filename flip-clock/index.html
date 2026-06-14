@@ -1,13 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- ═══════════════════════════════════════════════════════════
+     SEO & META
+═══════════════════════════════════════════════════════════ -->
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<title>Flip Clock</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23222224'/><circle cx='50' cy='50' r='38' fill='none' stroke='%23f2f2f0' stroke-width='5'/><line x1='50' y1='20' x2='50' y2='50' stroke='%23f2f2f0' stroke-width='5' stroke-linecap='round'/><line x1='50' y1='50' x2='68' y2='62' stroke='%23f2f2f0' stroke-width='4' stroke-linecap='round'/></svg>">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+<title>Flip Clock — Free Online Split-Flap Clock & Stopwatch</title>
+<meta name="description" content="Flip Clock is a free, beautiful online split-flap clock and stopwatch. Supports 12/24 hour format, seconds display, digital font, tick sound, and fullscreen desk-clock mode."/>
+<meta name="keywords" content="flip clock, online clock, split flap clock, stopwatch, digital clock, free clock, desk clock, 12 hour clock, 24 hour clock, timer"/>
+<meta name="robots" content="index, follow"/>
+<meta name="author" content="Flip Clock"/>
+<link rel="canonical" href="https://flip-clock2.vercel.app/"/>
 
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://flip-clock2.vercel.app/"/>
+<meta property="og:title" content="Flip Clock — Free Online Split-Flap Clock & Stopwatch"/>
+<meta property="og:description" content="A beautiful free online split-flap clock and stopwatch with 12/24 hr mode, tick sound, fullscreen and more."/>
+<meta property="og:image" content="https://flip-clock2.vercel.app/og-image.png"/>
+<meta property="og:site_name" content="Flip Clock"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Flip Clock — Free Online Split-Flap Clock & Stopwatch"/>
+<meta name="twitter:description" content="A beautiful free online split-flap clock and stopwatch."/>
+<meta name="twitter:image" content="https://flip-clock2.vercel.app/og-image.png"/>
+
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Flip Clock",
+  "url": "https://flip-clock2.vercel.app/",
+  "description": "A free online split-flap clock and stopwatch with 12/24 hr mode, tick sound, fullscreen desk-clock view, and stopwatch with centiseconds.",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Flip Clock",
+    "url": "https://flip-clock2.vercel.app/"
+  }
+}
+</script>
+
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23222224'/><circle cx='50' cy='50' r='38' fill='none' stroke='%23f2f2f0' stroke-width='5'/><line x1='50' y1='20' x2='50' y2='50' stroke='%23f2f2f0' stroke-width='5' stroke-linecap='round'/><line x1='50' y1='50' x2='68' y2='62' stroke='%23f2f2f0' stroke-width='4' stroke-linecap='round'/></svg>"/>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet"/>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ADSENSE SCRIPT (replace ca-pub-XXXXXXXXXXXXXXXX with your ID)
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+═══════════════════════════════════════════════════════════ -->
+
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════ */
 :root{
   --bg-1:#1c1c1e;
   --bg-2:#050506;
@@ -29,14 +89,38 @@ html,body{
   background:radial-gradient(circle at 50% 38%,var(--bg-1) 0%,var(--bg-2) 78%);
   color:var(--text);
   font-family:var(--font-1);
-  overflow:hidden;
   -webkit-font-smoothing:antialiased;
+  overflow:hidden;
 }
 
+/* ═══════════════════════════════════════
+   APP SHELL
+═══════════════════════════════════════ */
 #app{
   width:100%;height:100vh;height:100dvh;
   display:flex;flex-direction:column;
   position:relative;
+}
+
+/* ── Ad Banner slots ── */
+.ad-banner{
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(10,10,11,.45);
+  border-bottom:1px solid rgba(255,255,255,.04);
+  min-height:60px;
+  overflow:hidden;
+}
+.ad-banner.footer-ad{
+  border-bottom:none;
+  border-top:1px solid rgba(255,255,255,.04);
+  min-height:50px;
+}
+.ad-label{
+  font-size:10px;color:var(--text-dim);letter-spacing:.1em;
+  text-transform:uppercase;padding:4px 10px;
+  border:1px solid rgba(255,255,255,.06);border-radius:3px;
+  pointer-events:none;
 }
 
 /* ── Views ── */
@@ -52,7 +136,9 @@ html,body{
 }
 .view.active{display:flex;}
 
-/* ── Flip unit ── */
+/* ═══════════════════════════════════════
+   FLIP UNIT
+═══════════════════════════════════════ */
 .flip-row{display:flex;align-items:center;justify-content:center;gap:2vmin;flex-wrap:nowrap;}
 .flip-group{display:flex;gap:1vmin;}
 .side-col{display:flex;flex-direction:column;gap:1.2vmin;margin-left:2vmin;align-items:flex-start;}
@@ -85,7 +171,7 @@ html,body{
 .flap.bottom{bottom:0;transform-origin:50% 0%;background:var(--card-dark);border-top-left-radius:0;border-top-right-radius:0;}
 .flap.bottom .num{top:-100%;}
 
-/* AM/PM box */
+/* AM/PM */
 .ampm-box{
   width:7vmin;height:9.5vmin;background:var(--card);
   display:flex;align-items:center;justify-content:center;
@@ -101,7 +187,9 @@ html,body{
 .colon{font-size:10vmin;font-weight:700;color:var(--text-dim);line-height:1;padding-bottom:1vmin;animation:colonBlink 1s step-end infinite;}
 @keyframes colonBlink{0%,100%{opacity:1;}50%{opacity:.2;}}
 
-/* ── Stopwatch controls ── */
+/* ═══════════════════════════════════════
+   STOPWATCH CONTROLS
+═══════════════════════════════════════ */
 .sw-controls{display:flex;gap:3vmin;margin-top:1vmin;}
 .ctrl-btn{
   font-family:var(--font-1);
@@ -118,7 +206,9 @@ html,body{
 .ctrl-btn.running{background:#c0392b;color:#fff;border-color:transparent;}
 .ctrl-btn.running:hover{background:#d8493a;}
 
-/* ── Bottom bar ── */
+/* ═══════════════════════════════════════
+   BOTTOM BAR
+═══════════════════════════════════════ */
 .bottom-bar{
   flex-shrink:0;
   display:flex;align-items:center;justify-content:space-between;
@@ -127,7 +217,7 @@ html,body{
   border-top:1px solid rgba(255,255,255,.05);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   position:relative;z-index:20;
-  transition:opacity .35s ease, visibility .35s ease;
+  transition:opacity .35s ease,visibility .35s ease;
 }
 .bottom-bar.hidden{opacity:0;visibility:hidden;pointer-events:none;}
 .bottom-group{display:flex;gap:1.2vmin;}
@@ -144,7 +234,37 @@ html,body{
 .nav-btn.active{color:var(--text);background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.06);}
 .nav-btn svg{width:2.2vmin;height:2.2vmin;flex-shrink:0;}
 
-/* ── Fullscreen hint ── */
+/* ═══════════════════════════════════════
+   FOOTER (legal links)
+═══════════════════════════════════════ */
+.site-footer{
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  flex-wrap:wrap;gap:.6rem 1.6rem;
+  padding:.9rem 2rem;
+  background:rgba(5,5,6,.6);
+  border-top:1px solid rgba(255,255,255,.04);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  position:relative;z-index:20;
+}
+.site-footer a{
+  color:var(--text-dim);
+  font-size:1.3vmin;font-weight:500;letter-spacing:.04em;
+  text-decoration:none;
+  transition:color .15s;
+  white-space:nowrap;
+}
+.site-footer a:hover{color:var(--text);}
+.site-footer .sep{color:rgba(255,255,255,.15);font-size:1.1vmin;}
+.footer-copy{
+  width:100%;text-align:center;
+  color:rgba(255,255,255,.18);
+  font-size:1.1vmin;margin-top:.2rem;
+}
+
+/* ═══════════════════════════════════════
+   FULLSCREEN HINT
+═══════════════════════════════════════ */
 #fs-hint{
   position:fixed;bottom:3vmin;left:50%;transform:translateX(-50%);
   background:rgba(30,30,32,.85);color:var(--text-dim);
@@ -155,13 +275,18 @@ html,body{
 }
 #fs-hint.show{opacity:1;}
 
-/* ── Modals ── */
+/* ═══════════════════════════════════════
+   MODALS — shared
+═══════════════════════════════════════ */
 .modal-overlay{
-  position:fixed;inset:0;z-index:200;
+  position:fixed;inset:0;z-index:300;
   background:rgba(0,0,0,.65);
   display:none;align-items:center;justify-content:center;
+  padding:1rem;
 }
 .modal-overlay.active{display:flex;}
+
+/* ── Clock-style modal (options / about) ── */
 .modal{
   width:min(90vw,440px);background:#d4d4d6;color:#1c1c1e;
   border-radius:1.2vmin;overflow:hidden;
@@ -196,9 +321,7 @@ html,body{
   font-size:1.6vmin;font-weight:700;letter-spacing:.04em;
   padding:1.1vmin 2.4vmin;cursor:pointer;
   transition:background .12s,color .12s;
-  outline:none;
-  /* CRITICAL: prevent any inherited form behaviour */
-  -webkit-appearance:none;appearance:none;
+  outline:none;-webkit-appearance:none;appearance:none;
   user-select:none;
 }
 .segmented button.active{background:#f2f2f0;color:#1c1c1e;}
@@ -212,6 +335,7 @@ html,body{
 .modal-footer .ctrl-btn.primary{background:#1c1c1e;color:#f2f2f0;}
 .modal-footer .ctrl-btn:hover{background:#000;color:#fff;}
 
+/* Clock about modal body */
 .about-body{font-size:1.8vmin;line-height:1.65;}
 .about-body h3{font-size:2.6vmin;margin-bottom:.8vmin;font-family:var(--font-2);color:#1c1c1e;}
 .about-body p{margin-bottom:1.3vmin;color:#3a3a3c;}
@@ -220,13 +344,73 @@ html,body{
 .about-features li{color:#3a3a3c;padding:.3vmin 0;font-size:1.7vmin;}
 .about-features li::before{content:'✦ ';color:#6c6c6e;font-size:1.2vmin;}
 
-/* ── Fullscreen tweaks ── */
+/* ── Legal modal (wide, scrollable, light) ── */
+.legal-modal{
+  width:min(94vw,700px);
+  max-height:88vh;
+  background:#f5f5f7;color:#1c1c1e;
+  border-radius:14px;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 24px 80px rgba(0,0,0,.7);
+  font-family:var(--font-1);
+}
+.legal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  background:#1c1c1e;color:#f2f2f0;
+  padding:18px 24px;flex-shrink:0;
+}
+.legal-header h2{font-size:17px;font-weight:700;letter-spacing:.03em;}
+.legal-close{
+  background:#3a3a3c;color:#f2f2f0;border:none;border-radius:6px;
+  width:30px;height:30px;font-size:14px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;flex-shrink:0;
+}
+.legal-close:hover{background:#000;}
+.legal-body{
+  padding:28px 28px 32px;
+  overflow-y:auto;
+  flex:1;
+  line-height:1.7;
+  font-size:14.5px;
+  color:#2c2c2e;
+}
+.legal-body h3{
+  font-size:18px;font-weight:700;color:#1c1c1e;
+  margin:24px 0 8px;border-bottom:1px solid #d0d0d4;padding-bottom:6px;
+}
+.legal-body h3:first-child{margin-top:0;}
+.legal-body p{margin-bottom:12px;}
+.legal-body ul{padding-left:20px;margin-bottom:12px;}
+.legal-body ul li{margin-bottom:6px;}
+.legal-body a{color:#0071e3;text-decoration:none;}
+.legal-body a:hover{text-decoration:underline;}
+.legal-body strong{font-weight:600;color:#1c1c1e;}
+.legal-date{font-size:12px;color:#8c8c90;margin-top:20px;padding-top:14px;border-top:1px solid #d0d0d4;}
+
+/* ── Content ad slot (inside legal modal) ── */
+.ad-in-legal{
+  margin:20px 0;padding:12px;
+  background:#ebebed;border-radius:8px;
+  text-align:center;min-height:90px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px dashed #c0c0c4;
+}
+.ad-in-legal .ad-label{color:#8c8c90;}
+
+/* ═══════════════════════════════════════
+   FULLSCREEN OVERRIDES
+═══════════════════════════════════════ */
 :fullscreen .flip-unit{font-size:14vmin;width:16vmin;height:21vmin;}
 :fullscreen .flip-unit.small{font-size:7vmin;width:9vmin;height:12vmin;}
 :fullscreen .ampm-box{width:9vmin;height:12vmin;font-size:2.4vmin;}
 :fullscreen .colon{font-size:12vmin;}
+:fullscreen .site-footer{display:none;}
+:fullscreen .ad-banner{display:none;}
 
-/* ── Mobile ── */
+/* ═══════════════════════════════════════
+   MOBILE
+═══════════════════════════════════════ */
 @media(max-width:640px){
   .flip-unit{width:18vmin;height:24vmin;font-size:15vmin;}
   .flip-unit.small{width:9vmin;height:12vmin;font-size:7.5vmin;}
@@ -245,59 +429,100 @@ html,body{
   .about-body{font-size:2.2vmin;}
   .about-body h3{font-size:3vmin;}
   #fs-hint{font-size:2.2vmin;}
+  .site-footer a{font-size:2vmin;}
+  .site-footer .sep{font-size:1.8vmin;}
+  .footer-copy{font-size:1.6vmin;}
+  .legal-body{font-size:13.5px;padding:20px 16px 24px;}
+  .legal-header{padding:14px 16px;}
+  .legal-header h2{font-size:15px;}
 }
 </style>
 </head>
 <body>
 <div id="app">
+
+  <!-- ═══════════════════════════════════════
+       Adsense Header
+  ═══════════════════════════════════════ -->
+  <div class="ad-banner" role="complementary" aria-label="Advertisement">
+    <!-- Adsense Header -->
+    <!--
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="XXXXXXXXXX"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    -->
+    <span class="ad-label" aria-hidden="true">Advertisement</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       CLOCK & STOPWATCH VIEWS
+  ═══════════════════════════════════════ -->
   <div class="views">
 
     <!-- CLOCK -->
-    <div class="view active" id="clock-view">
+    <div class="view active" id="clock-view" role="main" aria-label="Flip Clock">
       <div class="flip-row">
-        <div class="flip-group" id="hh"></div>
-        <div class="colon" id="clock-colon">:</div>
-        <div class="flip-group" id="mm"></div>
+        <div class="flip-group" id="hh" aria-label="Hours"></div>
+        <div class="colon" id="clock-colon" aria-hidden="true">:</div>
+        <div class="flip-group" id="mm" aria-label="Minutes"></div>
         <div class="side-col" id="side-col">
-          <div class="ampm-box" id="ampm">AM</div>
-          <div class="flip-group" id="ss"></div>
+          <div class="ampm-box" id="ampm" aria-live="polite">AM</div>
+          <div class="flip-group" id="ss" aria-label="Seconds"></div>
         </div>
       </div>
     </div>
 
     <!-- STOPWATCH -->
-    <div class="view" id="stopwatch-view">
+    <div class="view" id="stopwatch-view" role="main" aria-label="Stopwatch">
       <div class="flip-row">
-        <div class="flip-group" id="sw-mm"></div>
-        <div class="colon" style="animation:none;opacity:1;">:</div>
-        <div class="flip-group" id="sw-ss"></div>
+        <div class="flip-group" id="sw-mm" aria-label="Minutes"></div>
+        <div class="colon" style="animation:none;opacity:1;" aria-hidden="true">:</div>
+        <div class="flip-group" id="sw-ss" aria-label="Seconds"></div>
         <div class="side-col">
-          <div class="flip-group" id="sw-cs"></div>
+          <div class="flip-group" id="sw-cs" aria-label="Centiseconds"></div>
         </div>
       </div>
       <div class="sw-controls">
-        <button class="ctrl-btn" id="sw-reset">Reset</button>
-        <button class="ctrl-btn primary" id="sw-toggle">Start</button>
+        <button class="ctrl-btn" id="sw-reset" aria-label="Reset stopwatch">Reset</button>
+        <button class="ctrl-btn primary" id="sw-toggle" aria-label="Start stopwatch">Start</button>
       </div>
     </div>
 
+    <!-- Adsense Content -->
+    <!-- Placed inside views area, non-intrusive -->
+    <!--
+    <div style="position:absolute;bottom:0;left:0;right:0;text-align:center;pointer-events:none;">
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:728px;height:90px"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    -->
+
   </div>
 
-  <!-- BOTTOM BAR -->
-  <div class="bottom-bar" id="bottom-bar">
+  <!-- ═══════════════════════════════════════
+       BOTTOM NAV BAR
+  ═══════════════════════════════════════ -->
+  <div class="bottom-bar" id="bottom-bar" role="navigation" aria-label="App navigation">
     <div class="bottom-group">
-      <button class="nav-btn active" id="nav-clock">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>
+      <button class="nav-btn active" id="nav-clock" aria-label="Switch to Clock" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>
         <span class="label">Clock</span>
       </button>
-      <button class="nav-btn" id="nav-stopwatch">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="9.5" y1="2" x2="14.5" y2="2"/><line x1="12" y1="2" x2="12" y2="4"/></svg>
+      <button class="nav-btn" id="nav-stopwatch" aria-label="Switch to Stopwatch" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="9.5" y1="2" x2="14.5" y2="2"/><line x1="12" y1="2" x2="12" y2="4"/></svg>
         <span class="label">Stopwatch</span>
       </button>
     </div>
     <div class="bottom-group">
-      <button class="nav-btn" id="fullscreen-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="fs-icon">
+      <button class="nav-btn" id="fullscreen-btn" aria-label="Toggle fullscreen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="fs-icon" aria-hidden="true">
           <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
           <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
           <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
@@ -305,8 +530,8 @@ html,body{
         </svg>
         <span class="label">Fullscreen</span>
       </button>
-      <button class="nav-btn" id="options-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button class="nav-btn" id="options-btn" aria-label="Open options">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/>
           <line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/>
           <line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>
@@ -318,41 +543,76 @@ html,body{
     </div>
   </div>
 
-  <!-- Fullscreen ESC hint -->
-  <div id="fs-hint">Press ESC to exit fullscreen</div>
+  <!-- ═══════════════════════════════════════
+       Adsense Footer
+  ═══════════════════════════════════════ -->
+  <div class="ad-banner footer-ad" role="complementary" aria-label="Advertisement">
+    <!-- Adsense Footer -->
+    <!--
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="XXXXXXXXXX"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    -->
+    <span class="ad-label" aria-hidden="true">Advertisement</span>
+  </div>
 
-  <!-- OPTIONS MODAL -->
-  <div class="modal-overlay" id="options-modal">
+  <!-- ═══════════════════════════════════════
+       SITE FOOTER (legal links)
+  ═══════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <a href="#" role="button" data-legal="about-us">About</a>
+    <span class="sep" aria-hidden="true">·</span>
+    <a href="#" role="button" data-legal="contact">Contact</a>
+    <span class="sep" aria-hidden="true">·</span>
+    <a href="#" role="button" data-legal="privacy">Privacy Policy</a>
+    <span class="sep" aria-hidden="true">·</span>
+    <a href="#" role="button" data-legal="terms">Terms &amp; Conditions</a>
+    <span class="sep" aria-hidden="true">·</span>
+    <a href="#" role="button" data-legal="disclaimer">Disclaimer</a>
+    <p class="footer-copy">&copy; <span id="footer-year"></span> Flip Clock. All rights reserved.</p>
+  </footer>
+
+  <!-- Fullscreen hint -->
+  <div id="fs-hint" role="status" aria-live="polite">Press ESC to exit fullscreen</div>
+
+  <!-- ═══════════════════════════════════════
+       OPTIONS MODAL
+  ═══════════════════════════════════════ -->
+  <div class="modal-overlay" id="options-modal" role="dialog" aria-modal="true" aria-labelledby="opt-title">
     <div class="modal">
       <div class="modal-header">
-        <h2>Options</h2>
-        <button class="close-btn" id="opt-close">&#10005;</button>
+        <h2 id="opt-title">Options</h2>
+        <button class="close-btn" id="opt-close" aria-label="Close options">&#10005;</button>
       </div>
       <div class="modal-body">
         <div class="option-row">
           <span>Hour Format</span>
-          <div class="segmented" id="seg-mode">
+          <div class="segmented" id="seg-mode" role="group" aria-label="Hour format">
             <button type="button" data-value="24">24 Hr</button>
             <button type="button" data-value="12">12 Hr</button>
           </div>
         </div>
         <div class="option-row">
           <span>Show Seconds</span>
-          <div class="segmented" id="seg-seconds">
+          <div class="segmented" id="seg-seconds" role="group" aria-label="Show seconds">
             <button type="button" data-value="no">No</button>
             <button type="button" data-value="yes">Yes</button>
           </div>
         </div>
         <div class="option-row">
           <span>Font Style</span>
-          <div class="segmented" id="seg-font">
+          <div class="segmented" id="seg-font" role="group" aria-label="Font style">
             <button type="button" data-value="1">Classic</button>
             <button type="button" data-value="2">Digital</button>
           </div>
         </div>
         <div class="option-row">
           <span>Tick Sound</span>
-          <div class="segmented" id="seg-sound">
+          <div class="segmented" id="seg-sound" role="group" aria-label="Tick sound">
             <button type="button" data-value="off">Off</button>
             <button type="button" data-value="on">On</button>
           </div>
@@ -365,12 +625,14 @@ html,body{
     </div>
   </div>
 
-  <!-- ABOUT MODAL -->
-  <div class="modal-overlay" id="about-modal">
+  <!-- ═══════════════════════════════════════
+       ABOUT CLOCK MODAL
+  ═══════════════════════════════════════ -->
+  <div class="modal-overlay" id="about-modal" role="dialog" aria-modal="true" aria-labelledby="about-title">
     <div class="modal small">
       <div class="modal-header">
-        <h2>About</h2>
-        <button class="close-btn" id="about-close">&#10005;</button>
+        <h2 id="about-title">About</h2>
+        <button class="close-btn" id="about-close" aria-label="Close about">&#10005;</button>
       </div>
       <div class="modal-body about-body">
         <h3>Flip Clock</h3>
@@ -388,118 +650,115 @@ html,body{
     </div>
   </div>
 
-</div>
-<script>
-/* =============================================================
-   AUDIO — Web Audio tick
-   ============================================================= */
-let audioCtx = null;
+  <!-- ═══════════════════════════════════════
+       LEGAL MODALS OVERLAY (shared)
+  ═══════════════════════════════════════ -->
+  <div class="modal-overlay" id="legal-overlay" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+    <div class="legal-modal">
+      <div class="legal-header">
+        <h2 id="legal-title">—</h2>
+        <button class="legal-close" id="legal-close" aria-label="Close">&#10005;</button>
+      </div>
+      <div class="legal-body" id="legal-body"></div>
+    </div>
+  </div>
 
+</div><!-- /#app -->
+
+<script>
+/* ================================================================
+   AUDIO — Web Audio tick
+================================================================ */
+let audioCtx = null;
 function initAudio(){
   if(audioCtx) return;
   try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){}
 }
-
 function playTick(){
   if(!audioCtx) return;
   try{
     const len = Math.floor(audioCtx.sampleRate * 0.04);
-    const buf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
+    const buf = audioCtx.createBuffer(1,len,audioCtx.sampleRate);
     const d   = buf.getChannelData(0);
-    for(let i=0;i<len;i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/len, 8);
-    const src  = audioCtx.createBufferSource();
-    src.buffer = buf;
-    const gain = audioCtx.createGain();
-    gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
-    src.connect(gain);
-    gain.connect(audioCtx.destination);
-    src.start();
+    for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/len,8);
+    const src=audioCtx.createBufferSource(); src.buffer=buf;
+    const gain=audioCtx.createGain();
+    gain.gain.setValueAtTime(0.4,audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.04);
+    src.connect(gain); gain.connect(audioCtx.destination); src.start();
   }catch(e){}
 }
 
-/* =============================================================
+/* ================================================================
    SETTINGS
-   ============================================================= */
-const DEFAULTS = { mode:'12', seconds:'no', font:'1', sound:'off' };
-let S  = Object.assign({}, DEFAULTS);           // live settings
-let PS = Object.assign({}, DEFAULTS);           // pending (in modal)
-
+================================================================ */
+const DEFAULTS={mode:'12',seconds:'no',font:'1',sound:'off'};
+let S=Object.assign({},DEFAULTS);
+let PS=Object.assign({},DEFAULTS);
 try{
-  const saved = JSON.parse(localStorage.getItem('flipclock-v3'));
-  if(saved) S = Object.assign({}, DEFAULTS, saved);
+  const saved=JSON.parse(localStorage.getItem('flipclock-v3'));
+  if(saved) S=Object.assign({},DEFAULTS,saved);
 }catch(e){}
-
-function saveS(){ localStorage.setItem('flipclock-v3', JSON.stringify(S)); }
+function saveS(){localStorage.setItem('flipclock-v3',JSON.stringify(S));}
 
 function applySettings(){
-  /* font */
   document.documentElement.style.setProperty(
-    '--clock-font', S.font === '2' ? 'var(--font-2)' : 'var(--font-1)'
+    '--clock-font', S.font==='2'?'var(--font-2)':'var(--font-1)'
   );
-  /* AM/PM and seconds visibility */
-  const sideCol = document.getElementById('side-col');
-  const ampm    = document.getElementById('ampm');
-  const ssGrp   = document.getElementById('ss');
-  ampm.style.display  = S.mode === '12'      ? 'flex' : 'none';
-  ssGrp.style.display = S.seconds === 'yes'  ? 'flex' : 'none';
-  const needSide = S.mode === '12' || S.seconds === 'yes';
-  sideCol.style.display = needSide ? 'flex' : 'none';
-  if(needSide) sideCol.classList.toggle('no-seconds', S.seconds !== 'yes');
+  const sideCol=document.getElementById('side-col');
+  const ampm=document.getElementById('ampm');
+  const ssGrp=document.getElementById('ss');
+  ampm.style.display  = S.mode==='12'     ? 'flex':'none';
+  ssGrp.style.display = S.seconds==='yes' ? 'flex':'none';
+  const needSide = S.mode==='12' || S.seconds==='yes';
+  sideCol.style.display = needSide ? 'flex':'none';
+  if(needSide) sideCol.classList.toggle('no-seconds', S.seconds!=='yes');
 }
-
-/* Reflect pending settings into the modal UI */
 function reflectUI(){
-  const map = { 'seg-mode':'mode','seg-seconds':'seconds','seg-font':'font','seg-sound':'sound' };
-  Object.entries(map).forEach(([id, key]) => {
-    document.getElementById(id).querySelectorAll('button').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.value === PS[key]);
+  const map={'seg-mode':'mode','seg-seconds':'seconds','seg-font':'font','seg-sound':'sound'};
+  Object.entries(map).forEach(([id,key])=>{
+    document.getElementById(id).querySelectorAll('button').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.value===PS[key]);
     });
   });
 }
 
-/* =============================================================
-   FLIP UNIT CLASS
-   ============================================================= */
+/* ================================================================
+   FLIP UNIT
+================================================================ */
 class FlipUnit{
-  constructor(parent, small, value){
-    this.el = document.createElement('div');
-    this.el.className = 'flip-unit' + (small ? ' small' : '');
-    this.el.innerHTML =
+  constructor(parent,small,value){
+    this.el=document.createElement('div');
+    this.el.className='flip-unit'+(small?' small':'');
+    this.el.innerHTML=
       '<div class="half top"><div class="num"></div></div>'+
       '<div class="half bottom"><div class="num"></div></div>'+
       '<div class="flap top"><div class="num"></div></div>'+
       '<div class="flap bottom"><div class="num"></div></div>';
     parent.appendChild(this.el);
-
-    this.sTop   = this.el.querySelector('.half.top .num');
-    this.sBot   = this.el.querySelector('.half.bottom .num');
-    this.fTop   = this.el.querySelector('.flap.top');
-    this.fBot   = this.el.querySelector('.flap.bottom');
-    this.fTopN  = this.fTop.querySelector('.num');
-    this.fBotN  = this.fBot.querySelector('.num');
-
-    this.value = String(value);
+    this.sTop=this.el.querySelector('.half.top .num');
+    this.sBot=this.el.querySelector('.half.bottom .num');
+    this.fTop=this.el.querySelector('.flap.top');
+    this.fBot=this.el.querySelector('.flap.bottom');
+    this.fTopN=this.fTop.querySelector('.num');
+    this.fBotN=this.fBot.querySelector('.num');
+    this.value=String(value);
     [this.sTop,this.sBot,this.fTopN,this.fBotN].forEach(n=>n.textContent=this.value);
     this.fTop.style.transform='rotateX(0deg)';
     this.fBot.style.transform='rotateX(90deg)';
   }
   set(value){
-    value = String(value);
-    if(value === this.value) return;
-    const old = this.value;
-    this.value = value;
-
-    this.sTop.textContent  = value;
-    this.fTopN.textContent = old;
-    this.fBotN.textContent = value;
-
+    value=String(value);
+    if(value===this.value) return;
+    const old=this.value; this.value=value;
+    this.sTop.textContent=value;
+    this.fTopN.textContent=old;
+    this.fBotN.textContent=value;
     this.fTop.style.transition='none';
     this.fBot.style.transition='none';
     this.fTop.style.transform='rotateX(0deg)';
     this.fBot.style.transform='rotateX(90deg)';
-    this.fTop.getBoundingClientRect(); // force reflow
-
+    this.fTop.getBoundingClientRect();
     requestAnimationFrame(()=>{
       this.fTop.style.transition='transform .32s cubic-bezier(.4,0,.2,1)';
       this.fBot.style.transition='transform .32s cubic-bezier(.4,0,.2,1) .14s';
@@ -507,95 +766,74 @@ class FlipUnit{
       this.fBot.style.transform='rotateX(0deg)';
     });
     clearTimeout(this._t);
-    this._t = setTimeout(()=>{ this.sBot.textContent = value; }, 550);
+    this._t=setTimeout(()=>{ this.sBot.textContent=value; },550);
   }
 }
-
-function makeGroup(id, count, small, init){
-  const c = document.getElementById(id);
-  c.innerHTML = '';
-  const units = [];
-  for(let i=0;i<count;i++) units.push(new FlipUnit(c, small, init[i]));
-  return units;
+function makeGroup(id,count,small,init){
+  const c=document.getElementById(id); c.innerHTML='';
+  const u=[]; for(let i=0;i<count;i++) u.push(new FlipUnit(c,small,init[i]));
+  return u;
 }
+function pad(n){return n<10?'0'+n:''+n;}
 
-function pad(n){ return n<10?'0'+n:''+n; }
-
-/* =============================================================
+/* ================================================================
    CLOCK
-   ============================================================= */
+================================================================ */
 let hh,mm,ss;
 function buildClock(){
-  hh = makeGroup('hh',2,false,['0','0']);
-  mm = makeGroup('mm',2,false,['0','0']);
-  ss = makeGroup('ss',2,true, ['0','0']);
+  hh=makeGroup('hh',2,false,['0','0']);
+  mm=makeGroup('mm',2,false,['0','0']);
+  ss=makeGroup('ss',2,true, ['0','0']);
 }
-
-const ampmEl = document.getElementById('ampm');
-let prevH=-1, prevM=-1, prevS=-1;
+const ampmEl=document.getElementById('ampm');
+let prevH=-1,prevM=-1,prevS=-1;
 
 function tickClock(){
-  const now  = new Date();
-  let   h    = now.getHours();
-  const m    = now.getMinutes();
-  const sec  = now.getSeconds();
-  const ap   = h>=12 ? 'PM' : 'AM';
-
-  if(S.mode==='12'){
-    let h12=h%12; if(h12===0)h12=12; h=h12;
-  }
-
-  const hStr=pad(h), mStr=pad(m), sStr=pad(sec);
+  const now=new Date();
+  let h=now.getHours();
+  const m=now.getMinutes();
+  const sec=now.getSeconds();
+  const ap=h>=12?'PM':'AM';
+  if(S.mode==='12'){ let h12=h%12; if(h12===0)h12=12; h=h12; }
+  const hStr=pad(h),mStr=pad(m),sStr=pad(sec);
   hh[0].set(hStr[0]); hh[1].set(hStr[1]);
   mm[0].set(mStr[0]); mm[1].set(mStr[1]);
   ss[0].set(sStr[0]); ss[1].set(sStr[1]);
   ampmEl.textContent=ap;
-
-  /* ─── SMART TICK SOUND ───
-     seconds ON  → tick every second
-     seconds OFF → tick only when minute or hour changes            */
   if(S.sound==='on'){
-    if(S.seconds==='yes'){
-      if(sec !== prevS) playTick();
-    } else {
-      if(m !== prevM || h !== prevH) playTick();
-    }
+    if(S.seconds==='yes'){ if(sec!==prevS) playTick(); }
+    else { if(m!==prevM||h!==prevH) playTick(); }
   }
   prevH=h; prevM=m; prevS=sec;
 }
 
-/* =============================================================
+/* ================================================================
    STOPWATCH
-   ============================================================= */
+================================================================ */
 let swMM,swSS,swCS;
 function buildSW(){
-  swMM = makeGroup('sw-mm',2,false,['0','0']);
-  swSS = makeGroup('sw-ss',2,false,['0','0']);
-  swCS = makeGroup('sw-cs',2,true, ['0','0']);
+  swMM=makeGroup('sw-mm',2,false,['0','0']);
+  swSS=makeGroup('sw-ss',2,false,['0','0']);
+  swCS=makeGroup('sw-cs',2,true, ['0','0']);
 }
-
-let swElapsed=0, swRunning=false, swStart=0, swRAF=null, swPrevSec=-1;
-
+let swElapsed=0,swRunning=false,swStart=0,swRAF=null,swPrevSec=-1;
 function renderSW(ms){
-  const totalCs = Math.floor(ms/10);
-  const cs  = totalCs%100;
-  const tot = Math.floor(totalCs/100);
-  const sec = tot%60;
-  const min = Math.floor(tot/60)%100;
+  const totalCs=Math.floor(ms/10);
+  const cs=totalCs%100;
+  const tot=Math.floor(totalCs/100);
+  const sec=tot%60;
+  const min=Math.floor(tot/60)%100;
   swMM[0].set(pad(min)[0]); swMM[1].set(pad(min)[1]);
   swSS[0].set(pad(sec)[0]); swSS[1].set(pad(sec)[1]);
   swCS[0].set(pad(cs)[0]);  swCS[1].set(pad(cs)[1]);
-
-  if(S.sound==='on' && swRunning && sec!==swPrevSec) playTick();
+  if(S.sound==='on'&&swRunning&&sec!==swPrevSec) playTick();
   swPrevSec=sec;
 }
-
 function swLoop(){
   if(!swRunning) return;
   renderSW(swElapsed+(performance.now()-swStart));
   swRAF=requestAnimationFrame(swLoop);
 }
-
 document.getElementById('sw-toggle').addEventListener('click',()=>{
   initAudio();
   const btn=document.getElementById('sw-toggle');
@@ -612,7 +850,6 @@ document.getElementById('sw-toggle').addEventListener('click',()=>{
     renderSW(swElapsed);
   }
 });
-
 document.getElementById('sw-reset').addEventListener('click',()=>{
   swRunning=false; swElapsed=0; swPrevSec=-1;
   const btn=document.getElementById('sw-toggle');
@@ -622,60 +859,56 @@ document.getElementById('sw-reset').addEventListener('click',()=>{
   renderSW(0);
 });
 
-/* =============================================================
+/* ================================================================
    NAVIGATION
-   ============================================================= */
+================================================================ */
 document.getElementById('nav-clock').addEventListener('click',()=>{
   document.getElementById('nav-clock').classList.add('active');
   document.getElementById('nav-stopwatch').classList.remove('active');
+  document.getElementById('nav-clock').setAttribute('aria-pressed','true');
+  document.getElementById('nav-stopwatch').setAttribute('aria-pressed','false');
   document.getElementById('clock-view').classList.add('active');
   document.getElementById('stopwatch-view').classList.remove('active');
 });
 document.getElementById('nav-stopwatch').addEventListener('click',()=>{
   document.getElementById('nav-stopwatch').classList.add('active');
   document.getElementById('nav-clock').classList.remove('active');
+  document.getElementById('nav-stopwatch').setAttribute('aria-pressed','true');
+  document.getElementById('nav-clock').setAttribute('aria-pressed','false');
   document.getElementById('stopwatch-view').classList.add('active');
   document.getElementById('clock-view').classList.remove('active');
 });
 
-/* =============================================================
-   FULLSCREEN  — hide bottom bar, show ESC hint, ESC key support
-   ============================================================= */
-const bottomBar = document.getElementById('bottom-bar');
-const fsHint    = document.getElementById('fs-hint');
-const fsIcon    = document.getElementById('fs-icon');
-
-const ICON_EXPAND =
+/* ================================================================
+   FULLSCREEN
+================================================================ */
+const bottomBar=document.getElementById('bottom-bar');
+const fsHint=document.getElementById('fs-hint');
+const fsIcon=document.getElementById('fs-icon');
+const ICON_EXPAND=
   '<path d="M8 3H5a2 2 0 0 0-2 2v3"/>'+
   '<path d="M21 8V5a2 2 0 0 0-2-2h-3"/>'+
   '<path d="M3 16v3a2 2 0 0 0 2 2h3"/>'+
   '<path d="M16 21h3a2 2 0 0 0 2-2v-3"/>';
-const ICON_COLLAPSE =
+const ICON_COLLAPSE=
   '<path d="M8 3v3a2 2 0 0 1-2 2H3"/>'+
   '<path d="M21 8h-3a2 2 0 0 1-2-2V3"/>'+
   '<path d="M3 16h3a2 2 0 0 1 2 2v3"/>'+
   '<path d="M16 21v-3a2 2 0 0 1 2-2h3"/>';
-
-let fsHintTimer = null;
-
+let fsHintTimer=null;
 function onFSChange(){
-  const inFS = !!document.fullscreenElement;
-  fsIcon.innerHTML = inFS ? ICON_COLLAPSE : ICON_EXPAND;
-
+  const inFS=!!document.fullscreenElement;
+  fsIcon.innerHTML=inFS?ICON_COLLAPSE:ICON_EXPAND;
   if(inFS){
-    /* hide bottom bar */
     bottomBar.classList.add('hidden');
-    /* show ESC hint briefly */
     fsHint.classList.add('show');
     clearTimeout(fsHintTimer);
-    fsHintTimer = setTimeout(()=>fsHint.classList.remove('show'), 3000);
+    fsHintTimer=setTimeout(()=>fsHint.classList.remove('show'),3000);
   }else{
-    /* show bottom bar again */
     bottomBar.classList.remove('hidden');
     fsHint.classList.remove('show');
   }
 }
-
 document.getElementById('fullscreen-btn').addEventListener('click',()=>{
   if(!document.fullscreenElement){
     document.documentElement.requestFullscreen&&
@@ -684,66 +917,337 @@ document.getElementById('fullscreen-btn').addEventListener('click',()=>{
     document.exitFullscreen&&document.exitFullscreen().catch(()=>{});
   }
 });
-
-document.addEventListener('fullscreenchange', onFSChange);
-
-/* ESC key — exit fullscreen */
+document.addEventListener('fullscreenchange',onFSChange);
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape' && document.fullscreenElement){
+  if(e.key==='Escape'&&document.fullscreenElement){
     document.exitFullscreen&&document.exitFullscreen().catch(()=>{});
   }
 });
 
-/* =============================================================
+/* ================================================================
    OPTIONS MODAL
-   ============================================================= */
-const optModal   = document.getElementById('options-modal');
-const aboutModal = document.getElementById('about-modal');
+================================================================ */
+const optModal=document.getElementById('options-modal');
+const aboutModal=document.getElementById('about-modal');
 
 document.getElementById('options-btn').addEventListener('click',()=>{
   initAudio();
-  PS = Object.assign({}, S);
+  PS=Object.assign({},S);
   reflectUI();
   optModal.classList.add('active');
 });
 document.getElementById('opt-close').addEventListener('click',()=>optModal.classList.remove('active'));
 optModal.addEventListener('click',e=>{ if(e.target===optModal) optModal.classList.remove('active'); });
 
-/* Segmented button clicks — each button is type="button" so no form submit */
-const segMap = { 'seg-mode':'mode','seg-seconds':'seconds','seg-font':'font','seg-sound':'sound' };
+const segMap={'seg-mode':'mode','seg-seconds':'seconds','seg-font':'font','seg-sound':'sound'};
 Object.keys(segMap).forEach(segId=>{
   document.getElementById(segId).querySelectorAll('button').forEach(btn=>{
     btn.addEventListener('click',e=>{
       e.preventDefault(); e.stopPropagation();
-      const key = segMap[segId];
-      PS[key] = btn.dataset.value;
-      /* update active highlight only within THIS segment */
+      const key=segMap[segId];
+      PS[key]=btn.dataset.value;
       document.getElementById(segId).querySelectorAll('button').forEach(b=>{
-        b.classList.toggle('active', b.dataset.value === PS[key]);
+        b.classList.toggle('active', b.dataset.value===PS[key]);
       });
     });
   });
 });
-
 document.getElementById('opt-save').addEventListener('click',()=>{
-  S = Object.assign({}, PS);
-  saveS();
-  applySettings();
-  tickClock();
+  S=Object.assign({},PS);
+  saveS(); applySettings(); tickClock();
   optModal.classList.remove('active');
 });
-
-/* About modal */
 document.getElementById('about-btn').addEventListener('click',()=>aboutModal.classList.add('active'));
 document.getElementById('about-close').addEventListener('click',()=>aboutModal.classList.remove('active'));
 aboutModal.addEventListener('click',e=>{ if(e.target===aboutModal) aboutModal.classList.remove('active'); });
 
-/* =============================================================
+/* ================================================================
+   LEGAL PAGES — content definitions
+================================================================ */
+const LEGAL_PAGES = {
+
+  'about-us': {
+    title: 'About Us',
+    html: `
+      <h3>Welcome to Flip Clock</h3>
+      <p><strong>Flip Clock</strong> (<a href="https://flip-clock2.vercel.app" target="_blank" rel="noopener">flip-clock2.vercel.app</a>) is a free, browser-based split-flap clock and stopwatch built for anyone who loves clean, minimal time displays. No app to download, no sign-up required — just open and enjoy.</p>
+
+      <h3>What We Offer</h3>
+      <p>Our tool provides:</p>
+      <ul>
+        <li>A real-time flip clock with authentic split-flap animations</li>
+        <li>12-hour and 24-hour display modes</li>
+        <li>Optional seconds display for precision timekeeping</li>
+        <li>Classic and Digital font styles</li>
+        <li>A realistic tick sound powered by the Web Audio API</li>
+        <li>A full-screen desk-clock mode (press ESC to exit)</li>
+        <li>A stopwatch with centisecond precision</li>
+        <li>Automatic saving of your preferences</li>
+      </ul>
+
+      <h3>Our Mission</h3>
+      <p>We believe utility tools on the web should be fast, beautiful, and distraction-free. Flip Clock is built with that principle at its core — no unnecessary bloat, no tracking beyond basic analytics, and no paywalls.</p>
+
+      <h3>Technology</h3>
+      <p>Flip Clock is a single-page web application built with pure HTML5, CSS3, and vanilla JavaScript. No frameworks or external libraries are required. It works on all modern browsers across desktop and mobile devices.</p>
+
+      <h3>Contact</h3>
+      <p>Have a suggestion or found a bug? We'd love to hear from you. Please use our <a href="#" data-legal="contact" class="legal-internal-link">Contact</a> page to reach out.</p>
+      <p class="legal-date">Last updated: June 2026</p>
+    `
+  },
+
+  'contact': {
+    title: 'Contact Us',
+    html: `
+      <h3>Get in Touch</h3>
+      <p>We welcome feedback, bug reports, feature requests, and general enquiries about Flip Clock. Please read below for the best way to reach us.</p>
+
+      <h3>General Enquiries</h3>
+      <p>For general questions about Flip Clock, its features, or how it works, you can reach us by email at:</p>
+      <p><strong>contact@flip-clock2.vercel.app</strong></p>
+      <p>(Replace the above with your actual email address before publishing.)</p>
+
+      <h3>Bug Reports</h3>
+      <p>If you discover a bug or something that doesn't work as expected, please describe the issue in as much detail as possible, including:</p>
+      <ul>
+        <li>The browser and version you are using</li>
+        <li>The operating system (Windows, macOS, Android, iOS, etc.)</li>
+        <li>A description of what you expected to happen vs. what actually happened</li>
+        <li>Steps to reproduce the issue if possible</li>
+      </ul>
+
+      <h3>Advertising &amp; Partnership Enquiries</h3>
+      <p>For advertising-related questions, including AdSense-related matters, sponsored content, or partnership opportunities, please email us with the subject line <strong>"Partnership Enquiry"</strong>.</p>
+
+      <h3>Privacy Requests</h3>
+      <p>To submit a data access or deletion request under applicable privacy laws, please refer to our <a href="#" data-legal="privacy" class="legal-internal-link">Privacy Policy</a> and email us with the subject line <strong>"Privacy Request"</strong>.</p>
+
+      <h3>Response Times</h3>
+      <p>We aim to respond to all enquiries within 3–5 business days. Volume may affect response times during busy periods.</p>
+      <p class="legal-date">Last updated: June 2026</p>
+    `
+  },
+
+  'privacy': {
+    title: 'Privacy Policy',
+    html: `
+      <h3>Privacy Policy</h3>
+      <p>This Privacy Policy describes how Flip Clock ("we", "us", or "our"), operated at <strong>https://flip-clock2.vercel.app</strong>, collects, uses, and shares information when you visit or use our website.</p>
+      <p>By using this website, you consent to the data practices described in this policy. If you do not agree, please discontinue use of the site.</p>
+
+      <!-- Adsense Content (inside legal page) -->
+      <div class="ad-in-legal">
+        <!-- Adsense Content -->
+        <!--
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});<\/script>
+        -->
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <h3>1. Information We Collect</h3>
+      <p><strong>a) Automatically Collected Information</strong><br>
+      When you visit our website, certain information is automatically collected by our hosting provider and third-party services, including your IP address, browser type and version, operating system, referring URLs, pages visited, and the date and time of your visit.</p>
+
+      <p><strong>b) Locally Stored Preferences</strong><br>
+      Flip Clock saves your display preferences (such as hour format, seconds display, font style, and tick sound setting) in your browser's <strong>localStorage</strong>. This data never leaves your device and is not transmitted to our servers.</p>
+
+      <p><strong>c) Cookies</strong><br>
+      We and our third-party partners (including Google) may use cookies and similar tracking technologies. Cookies are small text files stored on your device. We use cookies for:</p>
+      <ul>
+        <li>Analytics (understanding how users interact with our site)</li>
+        <li>Advertising (serving relevant ads via Google AdSense)</li>
+        <li>Performance and functionality improvements</li>
+      </ul>
+      <p>You can control cookie settings through your browser. Note that disabling cookies may affect how some features of this site function.</p>
+
+      <h3>2. Google AdSense &amp; Third-Party Advertising</h3>
+      <p>We use <strong>Google AdSense</strong> to display advertisements on this website. Google AdSense uses cookies and web beacons to serve ads based on a user's prior visits to this and other websites. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to our site and/or other sites on the Internet.</p>
+      <p>You may opt out of personalised advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Google Ads Settings</a> or by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">aboutads.info</a>.</p>
+      <p>For more information on how Google uses data, please visit: <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">How Google uses data when you use our partners' sites or apps</a>.</p>
+
+      <h3>3. Google Analytics</h3>
+      <p>We may use <strong>Google Analytics</strong> to collect aggregate, anonymised data about how users interact with Flip Clock. This helps us understand which features are most used and how to improve the site. Google Analytics collects data such as session duration, pages visited, and approximate geographic location. No personally identifiable information is collected.</p>
+      <p>You can opt out of Google Analytics tracking by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics opt-out browser add-on</a>.</p>
+
+      <h3>4. How We Use Information</h3>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li>Operate, maintain, and improve the Flip Clock website</li>
+        <li>Understand user behaviour and preferences</li>
+        <li>Display relevant advertisements through Google AdSense</li>
+        <li>Monitor and analyse usage trends</li>
+        <li>Comply with legal obligations</li>
+      </ul>
+
+      <h3>5. Information Sharing</h3>
+      <p>We do not sell, trade, or rent your personal information to third parties. We may share non-personally identifiable, aggregated data with analytics and advertising partners as described above. We may disclose information if required by law or to protect our rights.</p>
+
+      <h3>6. Children's Privacy</h3>
+      <p>Flip Clock is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected such data, please contact us immediately so we can delete it.</p>
+
+      <h3>7. Data Retention</h3>
+      <p>Your display preferences stored in localStorage remain on your device until you clear your browser's local storage. Analytics data retained by Google is subject to Google's own retention policies.</p>
+
+      <h3>8. Your Rights</h3>
+      <p>Depending on your jurisdiction, you may have the right to access, correct, or delete personal data we hold about you. To make such a request, please contact us using the details on our Contact page.</p>
+
+      <h3>9. Third-Party Links</h3>
+      <p>Our site may contain links to third-party websites. We are not responsible for the privacy practices of those sites. We encourage you to review the privacy policies of any site you visit.</p>
+
+      <h3>10. Changes to This Policy</h3>
+      <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date. Continued use of the site after changes constitutes acceptance of the updated policy.</p>
+
+      <h3>11. Contact Us</h3>
+      <p>For questions about this Privacy Policy, contact us via our <a href="#" data-legal="contact" class="legal-internal-link">Contact page</a>.</p>
+      <p class="legal-date">Last updated: June 2026</p>
+    `
+  },
+
+  'terms': {
+    title: 'Terms & Conditions',
+    html: `
+      <h3>Terms &amp; Conditions</h3>
+      <p>Please read these Terms &amp; Conditions ("Terms") carefully before using <strong>https://flip-clock2.vercel.app</strong> (the "Site") operated by Flip Clock ("we", "us", or "our").</p>
+      <p>By accessing or using the Site, you agree to be bound by these Terms. If you do not agree, please do not use the Site.</p>
+
+      <h3>1. Use of the Site</h3>
+      <p>Flip Clock grants you a limited, non-exclusive, non-transferable, revocable licence to access and use the Site for personal, non-commercial purposes. You agree not to:</p>
+      <ul>
+        <li>Use the Site for any unlawful purpose</li>
+        <li>Attempt to gain unauthorised access to any part of the Site</li>
+        <li>Reproduce, duplicate, copy, sell, or exploit any portion of the Site without our express written permission</li>
+        <li>Use automated tools to scrape or systematically download content from the Site</li>
+        <li>Interfere with or disrupt the integrity or performance of the Site</li>
+      </ul>
+
+      <h3>2. Intellectual Property</h3>
+      <p>All content on this Site, including but not limited to text, graphics, code, animations, and design, is the property of Flip Clock and is protected by applicable intellectual property laws. You may not reproduce or distribute any content without our prior written consent.</p>
+
+      <h3>3. Disclaimer of Warranties</h3>
+      <p>The Site is provided on an "as is" and "as available" basis without any warranties of any kind, either express or implied. We do not warrant that the Site will be uninterrupted, error-free, or free of viruses or other harmful components.</p>
+      <p>We make no warranties regarding the accuracy or reliability of any time display provided by the Site. The flip clock is intended for general informational and decorative purposes and should not be relied upon as a primary timekeeping source for critical applications.</p>
+
+      <h3>4. Limitation of Liability</h3>
+      <p>To the fullest extent permitted by law, Flip Clock shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of the Site, including but not limited to loss of data, loss of profits, or business interruption.</p>
+
+      <h3>5. Third-Party Advertising</h3>
+      <p>The Site may display advertisements served by Google AdSense and other third-party ad networks. These third parties may use cookies and similar technologies to deliver personalised advertisements. We are not responsible for the content of third-party advertisements or the practices of advertisers.</p>
+
+      <h3>6. Links to Third-Party Sites</h3>
+      <p>The Site may contain links to third-party websites. These links are provided for your convenience only. We have no control over the content of those sites and accept no responsibility for them or for any loss or damage that may arise from your use of them.</p>
+
+      <h3>7. Privacy</h3>
+      <p>Your use of the Site is also governed by our <a href="#" data-legal="privacy" class="legal-internal-link">Privacy Policy</a>, which is incorporated into these Terms by reference.</p>
+
+      <h3>8. Modifications</h3>
+      <p>We reserve the right to modify these Terms at any time. Changes will be posted on this page with an updated date. Your continued use of the Site after any changes constitutes your acceptance of the new Terms.</p>
+
+      <h3>9. Governing Law</h3>
+      <p>These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which Flip Clock operates, without regard to its conflict of law provisions.</p>
+
+      <h3>10. Contact</h3>
+      <p>For questions about these Terms, please visit our <a href="#" data-legal="contact" class="legal-internal-link">Contact page</a>.</p>
+      <p class="legal-date">Last updated: June 2026</p>
+    `
+  },
+
+  'disclaimer': {
+    title: 'Disclaimer',
+    html: `
+      <h3>Disclaimer</h3>
+      <p>The information and tools provided on <strong>https://flip-clock2.vercel.app</strong> are for general informational and entertainment purposes only. By using this Site, you acknowledge and agree to the following disclaimer.</p>
+
+      <h3>1. Accuracy of Time Display</h3>
+      <p>The flip clock displayed on this Site derives time from your device's system clock using JavaScript's <code>Date</code> API. While we strive to render the correct local time, Flip Clock does not independently synchronise with time servers (NTP) and is therefore subject to the accuracy of your device's clock.</p>
+      <p>Flip Clock should <strong>not</strong> be used as a primary timekeeping source for time-critical, medical, legal, or professional applications. For such purposes, please use a certified timekeeping device or service.</p>
+
+      <h3>2. No Professional Advice</h3>
+      <p>Nothing on this Site constitutes professional advice of any kind, including but not limited to legal, medical, financial, or technical advice. Any reliance you place on information or tools from this Site is strictly at your own risk.</p>
+
+      <h3>3. Advertisements</h3>
+      <p>This Site may display advertisements through Google AdSense and similar advertising platforms. The presence of an advertisement does not constitute an endorsement by Flip Clock of the advertised product or service. We are not responsible for the content, accuracy, or practices of any advertiser.</p>
+
+      <h3>4. External Links</h3>
+      <p>Where the Site contains links to other sites and resources provided by third parties, these links are provided for informational purposes only. We have no control over the contents of those sites or resources. Such links should not be interpreted as endorsement by Flip Clock of those linked websites or information you may obtain from them.</p>
+
+      <h3>5. Availability</h3>
+      <p>We make no guarantee that the Site will be available at all times. We reserve the right to suspend, withdraw, discontinue, or change all or any part of the Site without notice. We will not be liable to you if, for any reason, the Site is unavailable at any time or for any period.</p>
+
+      <h3>6. Limitation of Liability</h3>
+      <p>To the maximum extent permitted by applicable law, we exclude all liability, whether arising in contract, tort (including negligence), breach of statutory duty, or otherwise, even if foreseeable, for:</p>
+      <ul>
+        <li>Loss of profits, sales, business, or revenue</li>
+        <li>Business interruption</li>
+        <li>Loss of anticipated savings</li>
+        <li>Loss of business opportunity, goodwill, or reputation</li>
+        <li>Any indirect or consequential loss or damage</li>
+      </ul>
+
+      <h3>7. Changes</h3>
+      <p>We may update this Disclaimer at any time. Continued use of the Site after any changes constitutes your acceptance of the updated Disclaimer.</p>
+
+      <h3>Contact</h3>
+      <p>If you have questions about this Disclaimer, please <a href="#" data-legal="contact" class="legal-internal-link">contact us</a>.</p>
+      <p class="legal-date">Last updated: June 2026</p>
+    `
+  }
+
+};
+
+/* ================================================================
+   LEGAL MODAL LOGIC
+================================================================ */
+const legalOverlay=document.getElementById('legal-overlay');
+const legalTitle=document.getElementById('legal-title');
+const legalBody=document.getElementById('legal-body');
+const legalClose=document.getElementById('legal-close');
+
+function openLegal(key){
+  const page=LEGAL_PAGES[key];
+  if(!page) return;
+  legalTitle.textContent=page.title;
+  legalBody.innerHTML=page.html;
+  legalOverlay.classList.add('active');
+  legalBody.scrollTop=0;
+
+  /* Wire up internal links inside legal content */
+  legalBody.querySelectorAll('.legal-internal-link').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      const target=a.dataset.legal;
+      if(target) openLegal(target);
+    });
+  });
+}
+
+legalClose.addEventListener('click',()=>legalOverlay.classList.remove('active'));
+legalOverlay.addEventListener('click',e=>{ if(e.target===legalOverlay) legalOverlay.classList.remove('active'); });
+
+/* Footer link clicks */
+document.querySelectorAll('.site-footer a[data-legal]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    openLegal(a.dataset.legal);
+  });
+});
+
+/* ================================================================
+   FOOTER YEAR
+================================================================ */
+document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+/* ================================================================
    INIT
-   ============================================================= */
-/* Unlock AudioContext on first gesture */
+================================================================ */
 ['click','touchstart','keydown'].forEach(ev=>{
-  document.addEventListener(ev, initAudio, {once:true, passive:true});
+  document.addEventListener(ev,initAudio,{once:true,passive:true});
 });
 
 applySettings();
@@ -753,7 +1257,7 @@ tickClock();
 renderSW(0);
 reflectUI();
 
-setInterval(tickClock, 1000);
+setInterval(tickClock,1000);
 </script>
 </body>
 </html>
